@@ -1,1 +1,1635 @@
-
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": []
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "source": [
+        "**(Basic)Task 1: Simple Calculator**\n",
+        "\n",
+        "Description: Develop a basic calculator that can\n",
+        " perform four primary arithmetic operations: addition,\n",
+        " subtraction, multiplication, and division"
+      ],
+      "metadata": {
+        "id": "OSWm7vd0Hau2"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def perform_addition(x, y):\n",
+        "    return x + y\n",
+        "\n",
+        "def perform_subtract(x, y):\n",
+        "    return x - y\n",
+        "\n",
+        "def perform_multiply(x, y):\n",
+        "    return x * y\n",
+        "\n",
+        "def perform_divide(x, y):\n",
+        "    try:\n",
+        "        return x / y\n",
+        "    except ZeroDivisionError:\n",
+        "        return \"Error: Cannot divide by zero.\"\n",
+        "\n",
+        "def perform_percentage(x, y):\n",
+        "    try:\n",
+        "        return (x / y) * 100\n",
+        "    except ZeroDivisionError:\n",
+        "        return \"Error: Cannot calculate percentage with divisor zero.\"\n",
+        "\n",
+        "def calculator():\n",
+        "    print(\"Codveda Pro Calci: Choose your option!\")\n",
+        "    print(\"Select operation:\")\n",
+        "    print(\"1. Addition (+)\")\n",
+        "    print(\"2. Subtraction (-)\")\n",
+        "    print(\"3. Multiplication (*)\")\n",
+        "    print(\"4. Division (/)\")\n",
+        "    print(\"5. Percentage (%)\")\n",
+        "\n",
+        "    choice = input(\"Enter choice (1/2/3/4/5): \")\n",
+        "\n",
+        "    if choice in ('1', '2', '3', '4', '5'):\n",
+        "        try:\n",
+        "            num1 = float(input(\"Enter first number: \"))\n",
+        "            num2 = float(input(\"Enter second number: \"))\n",
+        "        except ValueError:\n",
+        "            print(\"Invalid input. Please enter numeric values.\")\n",
+        "            return\n",
+        "\n",
+        "        if choice == '1':\n",
+        "            print(\"Result:\", perform_addition(num1, num2))\n",
+        "        elif choice == '2':\n",
+        "            print(\"Result:\", perform_subtract(num1, num2))\n",
+        "        elif choice == '3':\n",
+        "            print(\"Result:\", perform_multiply(num1, num2))\n",
+        "        elif choice == '4':\n",
+        "            print(\"Result:\", perform_divide(num1, num2))\n",
+        "        elif choice == '5':\n",
+        "            print(f\"{num1} is {perform_percentage(num1, num2):.2f}% of {num2}\")\n",
+        "    else:\n",
+        "        print(\"Invalid choice. Please choose 1-5.\")\n",
+        "\n",
+        "if __name__ == \"__main__\":\n",
+        "  while True:\n",
+        "    calculator()\n",
+        "    again = input(\"Do you want to perform another operation? (y/n): \").lower()\n",
+        "    if again != 'y':\n",
+        "        print(\"Thanks for using Codveda Pro Calci!\")\n",
+        "        break\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "tZyJq-8lHZ32",
+        "outputId": "89a5fc75-d232-4002-9f00-212f88d90b07"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Codveda Pro Calci: Choose your option!\n",
+            "Select operation:\n",
+            "1. Addition (+)\n",
+            "2. Subtraction (-)\n",
+            "3. Multiplication (*)\n",
+            "4. Division (/)\n",
+            "5. Percentage (%)\n",
+            "Enter choice (1/2/3/4/5): 3\n",
+            "Enter first number: 2\n",
+            "Enter second number: 4\n",
+            "Result: 8.0\n",
+            "Do you want to perform another operation? (y/n): n\n",
+            "Thanks for using Codveda Pro Calci!\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "**(Basic)Task 2: Number Guessing Game**\n",
+        "\n",
+        "Description: Write a program that randomly generates\n",
+        " a number between 1 and 100. The user has to guess\n",
+        " the number, and the program will give feedback if the\n",
+        " guess is too high or too low"
+      ],
+      "metadata": {
+        "id": "L4wlCfOMEn0U"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import random\n",
+        "\n",
+        "def play_guess_the_number():\n",
+        "    print(\"🎮 Welcome to 'Guess the Secret Number'!\")\n",
+        "\n",
+        "    upper_limit = 100\n",
+        "    secret_number = random.randint(1, upper_limit)\n",
+        "    max_attempts = int(input(f\"Set the number of attempts you'd like (e.g., 7): \"))\n",
+        "\n",
+        "    print(f\"I'm thinking of a number between 1 and {upper_limit}...\")\n",
+        "\n",
+        "    for attempt in range(1, max_attempts + 1):\n",
+        "        try:\n",
+        "            guess = int(input(f\"🔢 Attempt {attempt}/{max_attempts}: Your guess? \"))\n",
+        "        except ValueError:\n",
+        "            print(\"⚠️ Please enter a valid whole number.\")\n",
+        "            continue\n",
+        "\n",
+        "        if guess == secret_number:\n",
+        "            print(f\"🎉 You got it! {guess} was the number. Guessed in {attempt} tries!\")\n",
+        "            return\n",
+        "        elif abs(secret_number - guess) <= 5:\n",
+        "            print(\"🔥 Very close!\")\n",
+        "        elif guess < secret_number:\n",
+        "            print(\"📉 Too low!\")\n",
+        "        else:\n",
+        "            print(\"📈 Too high!\")\n",
+        "\n",
+        "    print(f\"😞 Out of attempts! The number was {secret_number}.\")\n",
+        "\n",
+        "\n",
+        "if __name__ == \"__main__\":\n",
+        "    play_guess_the_number()\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "L4NgUVsYEoRk",
+        "outputId": "56f93113-b407-49f0-f3de-cd5661e6caa2"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "🎮 Welcome to 'Guess the Secret Number'!\n",
+            "Set the number of attempts you'd like (e.g., 7): 8\n",
+            "I'm thinking of a number between 1 and 100...\n",
+            "🔢 Attempt 1/8: Your guess? 59\n",
+            "🎉 You got it! 59 was the number. Guessed in 1 tries!\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "**(Basic)Task 3: Word Counter**\n",
+        "\n",
+        "  Description: Create a Python program that reads a\n",
+        " text file and counts the number of words in it.\n"
+      ],
+      "metadata": {
+        "id": "Mc4UFd0HEcWO"
+      }
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "unTHnzFvCFZd",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "b9d21680-5bb2-4ab8-b807-c9eba962d1be"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "📄 Analysis of 'my_report.txt':\n",
+            "📝 Words: 10\n",
+            "📏 Lines: 3\n",
+            "🔤 Characters: 64\n",
+            "📅 Analysis time: 2025-06-26 17:44:38\n"
+          ]
+        }
+      ],
+      "source": [
+        "def analyze_text_file(filepath):\n",
+        "    \"\"\"\n",
+        "    Analyze a text file and return number of words, lines, and characters.\n",
+        "    \"\"\"\n",
+        "    try:\n",
+        "        with open(filepath, 'r', encoding='utf-8') as file:\n",
+        "            content = file.read()\n",
+        "            words = content.split()\n",
+        "            lines = content.split('\\n')\n",
+        "            num_words = len(words)\n",
+        "            num_lines = len(lines)\n",
+        "            num_chars = len(content)\n",
+        "\n",
+        "            print(f\"📄 Analysis of '{filepath}':\")\n",
+        "            print(f\"📝 Words: {num_words}\")\n",
+        "            print(f\"📏 Lines: {num_lines}\")\n",
+        "            print(f\"🔤 Characters: {num_chars}\")\n",
+        "            return num_words, num_lines, num_chars\n",
+        "\n",
+        "    except FileNotFoundError:\n",
+        "        print(\"❌ File not found. Please check the filename and try again.\")\n",
+        "        return None\n",
+        "\n",
+        "if __name__ == \"__main__\":\n",
+        "\n",
+        "    with open(\"my_report.txt\", \"w\", encoding='utf-8') as sample:\n",
+        "        sample.write(\"Codveda internship is awesome!\\nPython is fun.\\nLet's count words.\")\n",
+        "\n",
+        "    # Run analysis\n",
+        "    analyze_text_file(\"my_report.txt\")\n",
+        "\n",
+        "from datetime import datetime\n",
+        "print(\"📅 Analysis time:\", datetime.now().strftime(\"%Y-%m-%d %H:%M:%S\"))\n"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "**(Intermediate)Task 1: To-Do List Application**\n",
+        "\n",
+        "Description: Build a simple command-line to-do list\n",
+        " application. Users should be able to add, delete, mark\n",
+        " as done, and list tasks.\n"
+      ],
+      "metadata": {
+        "id": "IA_FVcfXBr5t"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import os\n",
+        "os.listdir()\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "ucdeBH2bIx4_",
+        "outputId": "710a86e2-f943-4721-e8ee-e1a928befef2"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "['.config',\n",
+              " 'sample_text.txt',\n",
+              " 'decrypted_top_secret.txt',\n",
+              " 'todo.json',\n",
+              " 'secret.key',\n",
+              " 'encrypted_top_secret.txt',\n",
+              " 'quotes_scraped.csv',\n",
+              " 'top_secret.txt',\n",
+              " 'sample_data']"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 13
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from google.colab import files\n",
+        "files.download('task_log.json')"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 17
+        },
+        "id": "glzbf8mwI1hT",
+        "outputId": "d44c7c4a-de57-4938-f640-6cf199b47d90"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "display_data",
+          "data": {
+            "text/plain": [
+              "<IPython.core.display.Javascript object>"
+            ],
+            "application/javascript": [
+              "\n",
+              "    async function download(id, filename, size) {\n",
+              "      if (!google.colab.kernel.accessAllowed) {\n",
+              "        return;\n",
+              "      }\n",
+              "      const div = document.createElement('div');\n",
+              "      const label = document.createElement('label');\n",
+              "      label.textContent = `Downloading \"${filename}\": `;\n",
+              "      div.appendChild(label);\n",
+              "      const progress = document.createElement('progress');\n",
+              "      progress.max = size;\n",
+              "      div.appendChild(progress);\n",
+              "      document.body.appendChild(div);\n",
+              "\n",
+              "      const buffers = [];\n",
+              "      let downloaded = 0;\n",
+              "\n",
+              "      const channel = await google.colab.kernel.comms.open(id);\n",
+              "      // Send a message to notify the kernel that we're ready.\n",
+              "      channel.send({})\n",
+              "\n",
+              "      for await (const message of channel.messages) {\n",
+              "        // Send a message to notify the kernel that we're ready.\n",
+              "        channel.send({})\n",
+              "        if (message.buffers) {\n",
+              "          for (const buffer of message.buffers) {\n",
+              "            buffers.push(buffer);\n",
+              "            downloaded += buffer.byteLength;\n",
+              "            progress.value = downloaded;\n",
+              "          }\n",
+              "        }\n",
+              "      }\n",
+              "      const blob = new Blob(buffers, {type: 'application/binary'});\n",
+              "      const a = document.createElement('a');\n",
+              "      a.href = window.URL.createObjectURL(blob);\n",
+              "      a.download = filename;\n",
+              "      div.appendChild(a);\n",
+              "      a.click();\n",
+              "      div.remove();\n",
+              "    }\n",
+              "  "
+            ]
+          },
+          "metadata": {}
+        },
+        {
+          "output_type": "display_data",
+          "data": {
+            "text/plain": [
+              "<IPython.core.display.Javascript object>"
+            ],
+            "application/javascript": [
+              "download(\"download_94d3f2b2-eaad-489a-bcfe-5dda00c735f5\", \"task_log.json\", 167)"
+            ]
+          },
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import json\n",
+        "import os\n",
+        "from datetime import datetime\n",
+        "\n",
+        "DATA_FILE = \"task_log.json\"\n",
+        "\n",
+        "\n",
+        "if not os.path.exists(DATA_FILE):\n",
+        "    with open(DATA_FILE, \"w\") as f:\n",
+        "        json.dump([], f)\n",
+        "\n",
+        "def read_tasks():\n",
+        "    with open(DATA_FILE, \"r\") as file:\n",
+        "        return json.load(file)\n",
+        "\n",
+        "def write_tasks(tasks):\n",
+        "    with open(DATA_FILE, \"w\") as file:\n",
+        "        json.dump(tasks, file, indent=4)\n",
+        "\n",
+        "def create_task(description, priority=\"Normal\"):\n",
+        "    tasks = read_tasks()\n",
+        "    task = {\n",
+        "        \"description\": description,\n",
+        "        \"done\": False,\n",
+        "        \"priority\": priority,\n",
+        "        \"added_on\": datetime.now().strftime(\"%Y-%m-%d %H:%M:%S\")\n",
+        "    }\n",
+        "    tasks.append(task)\n",
+        "    write_tasks(tasks)\n",
+        "    print(f\"✅ Task added: '{description}' [Priority: {priority}]\")\n",
+        "\n",
+        "def show_tasks():\n",
+        "    tasks = read_tasks()\n",
+        "    if not tasks:\n",
+        "        print(\"📭 No tasks available.\")\n",
+        "    for idx, task in enumerate(tasks):\n",
+        "        status = \"✅\" if task[\"done\"] else \"⏳\"\n",
+        "        print(f\"{idx+1}. {status} [{task['priority']}] {task['description']} (added: {task['added_on']})\")\n",
+        "\n",
+        "def complete_task(index):\n",
+        "    tasks = read_tasks()\n",
+        "    if 0 <= index < len(tasks):\n",
+        "        tasks[index][\"done\"] = True\n",
+        "        write_tasks(tasks)\n",
+        "        print(\"🎉 Task marked as complete.\")\n",
+        "    else:\n",
+        "        print(\"❌ Invalid task number.\")\n",
+        "\n",
+        "def remove_task(index):\n",
+        "    tasks = read_tasks()\n",
+        "    if 0 <= index < len(tasks):\n",
+        "        removed = tasks.pop(index)\n",
+        "        write_tasks(tasks)\n",
+        "        print(f\"🗑️ Task removed: {removed['description']}\")\n",
+        "    else:\n",
+        "        print(\"❌ Invalid task number.\")\n",
+        "\n",
+        "# Sample usage\n",
+        "if __name__ == \"__main__\":\n",
+        "    create_task(\"Finish Codveda To-Do List Project\", \"High\")\n",
+        "    create_task(\"Practice Python\", \"Medium\")\n",
+        "    show_tasks()\n",
+        "    complete_task(0)\n",
+        "    remove_task(1)\n",
+        "    show_tasks()\n"
+      ],
+      "metadata": {
+        "id": "-PoQBKkUHDUg",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "0e172205-bb0a-4dd7-df94-7c25624c03f7"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "✅ Task added: 'Finish Codveda To-Do List Project' [Priority: High]\n",
+            "✅ Task added: 'Practice Python' [Priority: Medium]\n",
+            "1. ⏳ [High] Finish Codveda To-Do List Project (added: 2025-06-26 17:49:35)\n",
+            "2. ⏳ [Medium] Practice Python (added: 2025-06-26 17:49:35)\n",
+            "🎉 Task marked as complete.\n",
+            "🗑️ Task removed: Practice Python\n",
+            "1. ✅ [High] Finish Codveda To-Do List Project (added: 2025-06-26 17:49:35)\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "**(Intermediate)Task 2: Data Scraper**\n",
+        "\n",
+        " Description: Develop a web scraper to extract specific\n",
+        " data from a website (e.g., news headlines, product\n",
+        " prices)"
+      ],
+      "metadata": {
+        "id": "d7U8PWaWGFNj"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import requests\n",
+        "from bs4 import BeautifulSoup\n",
+        "import csv\n",
+        "from datetime import datetime\n",
+        "\n",
+        "def fetch_quotes_from_site(base_url=\"http://quotes.toscrape.com/\"):\n",
+        "    print(\"🔎 Starting quote scraping...\")\n",
+        "\n",
+        "    try:\n",
+        "        response = requests.get(base_url)\n",
+        "        response.raise_for_status()\n",
+        "    except requests.RequestException as e:\n",
+        "        print(f\"❌ Error fetching website: {e}\")\n",
+        "        return []\n",
+        "\n",
+        "    soup = BeautifulSoup(response.text, 'html.parser')\n",
+        "    quote_blocks = soup.find_all('div', class_='quote')\n",
+        "\n",
+        "    results = []\n",
+        "    for block in quote_blocks:\n",
+        "        quote_text = block.find('span', class_='text').get_text(strip=True)\n",
+        "        quote_author = block.find('small', class_='author').get_text(strip=True)\n",
+        "        tag_elements = block.find_all('a', class_='tag')\n",
+        "        tags = \", \".join(tag.get_text(strip=True) for tag in tag_elements)\n",
+        "\n",
+        "        results.append({\n",
+        "            \"Text\": quote_text,\n",
+        "            \"Author\": quote_author,\n",
+        "            \"Tags\": tags,\n",
+        "            \"Scraped_On\": datetime.now().strftime(\"%Y-%m-%d %H:%M:%S\")\n",
+        "        })\n",
+        "\n",
+        "    print(f\"✅ Total quotes scraped: {len(results)}\")\n",
+        "    return results\n",
+        "\n",
+        "def export_to_csv(data, filename=\"collected_quotes.csv\"):\n",
+        "    if not data:\n",
+        "        print(\"⚠️ No data to export.\")\n",
+        "        return\n",
+        "\n",
+        "    with open(filename, \"w\", newline='', encoding='utf-8') as file:\n",
+        "        writer = csv.DictWriter(file, fieldnames=[\"Text\", \"Author\", \"Tags\", \"Scraped_On\"])\n",
+        "        writer.writeheader()\n",
+        "        writer.writerows(data)\n",
+        "\n",
+        "    print(f\"📁 Data saved to {filename}\")\n",
+        "\n",
+        "if __name__ == \"__main__\":\n",
+        "    quotes = fetch_quotes_from_site()\n",
+        "    export_to_csv(quotes)\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "ARMXPXshGQDh",
+        "outputId": "66154237-536a-4ec5-95c6-cccbd3bd099d"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "🔎 Starting quote scraping...\n",
+            "✅ Total quotes scraped: 10\n",
+            "📁 Data saved to collected_quotes.csv\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from google.colab import files\n",
+        "files.download('collected_quotes.csv')"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 17
+        },
+        "id": "JKIyAKMEHAuw",
+        "outputId": "7c19b0d9-d0a5-433c-dea7-4d9915df10c2"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "display_data",
+          "data": {
+            "text/plain": [
+              "<IPython.core.display.Javascript object>"
+            ],
+            "application/javascript": [
+              "\n",
+              "    async function download(id, filename, size) {\n",
+              "      if (!google.colab.kernel.accessAllowed) {\n",
+              "        return;\n",
+              "      }\n",
+              "      const div = document.createElement('div');\n",
+              "      const label = document.createElement('label');\n",
+              "      label.textContent = `Downloading \"${filename}\": `;\n",
+              "      div.appendChild(label);\n",
+              "      const progress = document.createElement('progress');\n",
+              "      progress.max = size;\n",
+              "      div.appendChild(progress);\n",
+              "      document.body.appendChild(div);\n",
+              "\n",
+              "      const buffers = [];\n",
+              "      let downloaded = 0;\n",
+              "\n",
+              "      const channel = await google.colab.kernel.comms.open(id);\n",
+              "      // Send a message to notify the kernel that we're ready.\n",
+              "      channel.send({})\n",
+              "\n",
+              "      for await (const message of channel.messages) {\n",
+              "        // Send a message to notify the kernel that we're ready.\n",
+              "        channel.send({})\n",
+              "        if (message.buffers) {\n",
+              "          for (const buffer of message.buffers) {\n",
+              "            buffers.push(buffer);\n",
+              "            downloaded += buffer.byteLength;\n",
+              "            progress.value = downloaded;\n",
+              "          }\n",
+              "        }\n",
+              "      }\n",
+              "      const blob = new Blob(buffers, {type: 'application/binary'});\n",
+              "      const a = document.createElement('a');\n",
+              "      a.href = window.URL.createObjectURL(blob);\n",
+              "      a.download = filename;\n",
+              "      div.appendChild(a);\n",
+              "      a.click();\n",
+              "      div.remove();\n",
+              "    }\n",
+              "  "
+            ]
+          },
+          "metadata": {}
+        },
+        {
+          "output_type": "display_data",
+          "data": {
+            "text/plain": [
+              "<IPython.core.display.Javascript object>"
+            ],
+            "application/javascript": [
+              "download(\"download_58fb4623-00ff-46b8-9e7b-f73eaba8b8fb\", \"collected_quotes.csv\", 1659)"
+            ]
+          },
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "**(Intermediate)Task 3: API Integration Task** – Bitcoin Price Tracker\n",
+        "\n",
+        "This notebook fetches real-time Bitcoin prices using the [CoinDesk API](https://api.coindesk.com/v1/bpi/currentprice.json).  \n",
+        "The API returns data in JSON format for USD, GBP, and EUR.\n",
+        "\n",
+        "Steps:\n",
+        "1. Make a GET request to the CoinDesk API\n",
+        "2. Parse the JSON response\n",
+        "3. Display the prices in a readable format\n",
+        "4. (Optional) Save the output to a `.txt` log\n"
+      ],
+      "metadata": {
+        "id": "bbCnlzJvauVb"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import requests\n",
+        "from datetime import datetime\n",
+        "\n",
+        "def fetch_bitcoin_price():\n",
+        "    url = \"https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd,inr,eur\"\n",
+        "    try:\n",
+        "        response = requests.get(url)\n",
+        "        response.raise_for_status()\n",
+        "        return response.json()\n",
+        "    except requests.RequestException as e:\n",
+        "        print(\"❌ API request failed:\", e)\n",
+        "        return None\n",
+        "\n",
+        "def display_prices(data):\n",
+        "    if not data:\n",
+        "        print(\"No data to display.\")\n",
+        "        return\n",
+        "\n",
+        "    usd = data[\"bitcoin\"][\"usd\"]\n",
+        "    inr = data[\"bitcoin\"][\"inr\"]\n",
+        "    eur = data[\"bitcoin\"][\"eur\"]\n",
+        "\n",
+        "    print(\"💰 Bitcoin Price (Live from CoinGecko)\")\n",
+        "    print(f\"🕒 Time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\")\n",
+        "    print(f\"🇺🇸 USD: ${usd}\")\n",
+        "    print(f\"🇮🇳 INR: ₹{inr}\")\n",
+        "    print(f\"🇪🇺 EUR: €{eur}\")\n",
+        "\n",
+        "def save_log():\n",
+        "    timestamp = datetime.now().strftime(\"%Y-%m-%d %H:%M:%S\")\n",
+        "    with open(\"btc_fetch_log.txt\", \"a\") as f:\n",
+        "        f.write(f\"{timestamp} - Fetched Bitcoin prices from CoinGecko\\n\")\n",
+        "    print(\"📄 Log saved to btc_fetch_log.txt\")\n",
+        "\n",
+        "# Main program\n",
+        "data = fetch_bitcoin_price()\n",
+        "display_prices(data)\n",
+        "save_log()\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "rpko4qwxa4eX",
+        "outputId": "27f3fa39-b251-4999-f3bc-fe352bca9ec0"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "💰 Bitcoin Price (Live from CoinGecko)\n",
+            "🕒 Time: 2025-06-26 18:13:06\n",
+            "🇺🇸 USD: $107440\n",
+            "🇮🇳 INR: ₹9197330\n",
+            "🇪🇺 EUR: €91625\n",
+            "📄 Log saved to btc_fetch_log.txt\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from google.colab import files\n",
+        "files.download(\"btc_fetch_log.txt\")\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 17
+        },
+        "id": "mHz7K3cBbIqh",
+        "outputId": "d986ed96-011c-4ee6-ccd9-8ca0a901ef3b"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "display_data",
+          "data": {
+            "text/plain": [
+              "<IPython.core.display.Javascript object>"
+            ],
+            "application/javascript": [
+              "\n",
+              "    async function download(id, filename, size) {\n",
+              "      if (!google.colab.kernel.accessAllowed) {\n",
+              "        return;\n",
+              "      }\n",
+              "      const div = document.createElement('div');\n",
+              "      const label = document.createElement('label');\n",
+              "      label.textContent = `Downloading \"${filename}\": `;\n",
+              "      div.appendChild(label);\n",
+              "      const progress = document.createElement('progress');\n",
+              "      progress.max = size;\n",
+              "      div.appendChild(progress);\n",
+              "      document.body.appendChild(div);\n",
+              "\n",
+              "      const buffers = [];\n",
+              "      let downloaded = 0;\n",
+              "\n",
+              "      const channel = await google.colab.kernel.comms.open(id);\n",
+              "      // Send a message to notify the kernel that we're ready.\n",
+              "      channel.send({})\n",
+              "\n",
+              "      for await (const message of channel.messages) {\n",
+              "        // Send a message to notify the kernel that we're ready.\n",
+              "        channel.send({})\n",
+              "        if (message.buffers) {\n",
+              "          for (const buffer of message.buffers) {\n",
+              "            buffers.push(buffer);\n",
+              "            downloaded += buffer.byteLength;\n",
+              "            progress.value = downloaded;\n",
+              "          }\n",
+              "        }\n",
+              "      }\n",
+              "      const blob = new Blob(buffers, {type: 'application/binary'});\n",
+              "      const a = document.createElement('a');\n",
+              "      a.href = window.URL.createObjectURL(blob);\n",
+              "      a.download = filename;\n",
+              "      div.appendChild(a);\n",
+              "      a.click();\n",
+              "      div.remove();\n",
+              "    }\n",
+              "  "
+            ]
+          },
+          "metadata": {}
+        },
+        {
+          "output_type": "display_data",
+          "data": {
+            "text/plain": [
+              "<IPython.core.display.Javascript object>"
+            ],
+            "application/javascript": [
+              "download(\"download_da0d9ca3-6c82-4ee1-909b-348c0d53452e\", \"btc_fetch_log.txt\", 135)"
+            ]
+          },
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "**(Advanced) Task 1: Django Web Application\n",
+        " with Authentication**\n",
+        "\n",
+        " Description: Build a fully functional web application\n",
+        " using Django that includes user authentication (login,\n",
+        " registration, and password reset). The application can\n",
+        " be a blog, task manager, or e-commerce site."
+      ],
+      "metadata": {
+        "id": "ApzfPPhzdcn_"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from google.colab import files\n",
+        "uploaded = files.upload()  # 🔼 Upload .zip file from PC\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 73
+        },
+        "id": "Pd2Tneqtdc6x",
+        "outputId": "323363d2-5ede-4ad0-cd4b-ac02ba9ae0d7"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "display_data",
+          "data": {
+            "text/plain": [
+              "<IPython.core.display.HTML object>"
+            ],
+            "text/html": [
+              "\n",
+              "     <input type=\"file\" id=\"files-cc66f4f7-aedb-4fcf-8691-5767a2b77395\" name=\"files[]\" multiple disabled\n",
+              "        style=\"border:none\" />\n",
+              "     <output id=\"result-cc66f4f7-aedb-4fcf-8691-5767a2b77395\">\n",
+              "      Upload widget is only available when the cell has been executed in the\n",
+              "      current browser session. Please rerun this cell to enable.\n",
+              "      </output>\n",
+              "      <script>// Copyright 2017 Google LLC\n",
+              "//\n",
+              "// Licensed under the Apache License, Version 2.0 (the \"License\");\n",
+              "// you may not use this file except in compliance with the License.\n",
+              "// You may obtain a copy of the License at\n",
+              "//\n",
+              "//      http://www.apache.org/licenses/LICENSE-2.0\n",
+              "//\n",
+              "// Unless required by applicable law or agreed to in writing, software\n",
+              "// distributed under the License is distributed on an \"AS IS\" BASIS,\n",
+              "// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n",
+              "// See the License for the specific language governing permissions and\n",
+              "// limitations under the License.\n",
+              "\n",
+              "/**\n",
+              " * @fileoverview Helpers for google.colab Python module.\n",
+              " */\n",
+              "(function(scope) {\n",
+              "function span(text, styleAttributes = {}) {\n",
+              "  const element = document.createElement('span');\n",
+              "  element.textContent = text;\n",
+              "  for (const key of Object.keys(styleAttributes)) {\n",
+              "    element.style[key] = styleAttributes[key];\n",
+              "  }\n",
+              "  return element;\n",
+              "}\n",
+              "\n",
+              "// Max number of bytes which will be uploaded at a time.\n",
+              "const MAX_PAYLOAD_SIZE = 100 * 1024;\n",
+              "\n",
+              "function _uploadFiles(inputId, outputId) {\n",
+              "  const steps = uploadFilesStep(inputId, outputId);\n",
+              "  const outputElement = document.getElementById(outputId);\n",
+              "  // Cache steps on the outputElement to make it available for the next call\n",
+              "  // to uploadFilesContinue from Python.\n",
+              "  outputElement.steps = steps;\n",
+              "\n",
+              "  return _uploadFilesContinue(outputId);\n",
+              "}\n",
+              "\n",
+              "// This is roughly an async generator (not supported in the browser yet),\n",
+              "// where there are multiple asynchronous steps and the Python side is going\n",
+              "// to poll for completion of each step.\n",
+              "// This uses a Promise to block the python side on completion of each step,\n",
+              "// then passes the result of the previous step as the input to the next step.\n",
+              "function _uploadFilesContinue(outputId) {\n",
+              "  const outputElement = document.getElementById(outputId);\n",
+              "  const steps = outputElement.steps;\n",
+              "\n",
+              "  const next = steps.next(outputElement.lastPromiseValue);\n",
+              "  return Promise.resolve(next.value.promise).then((value) => {\n",
+              "    // Cache the last promise value to make it available to the next\n",
+              "    // step of the generator.\n",
+              "    outputElement.lastPromiseValue = value;\n",
+              "    return next.value.response;\n",
+              "  });\n",
+              "}\n",
+              "\n",
+              "/**\n",
+              " * Generator function which is called between each async step of the upload\n",
+              " * process.\n",
+              " * @param {string} inputId Element ID of the input file picker element.\n",
+              " * @param {string} outputId Element ID of the output display.\n",
+              " * @return {!Iterable<!Object>} Iterable of next steps.\n",
+              " */\n",
+              "function* uploadFilesStep(inputId, outputId) {\n",
+              "  const inputElement = document.getElementById(inputId);\n",
+              "  inputElement.disabled = false;\n",
+              "\n",
+              "  const outputElement = document.getElementById(outputId);\n",
+              "  outputElement.innerHTML = '';\n",
+              "\n",
+              "  const pickedPromise = new Promise((resolve) => {\n",
+              "    inputElement.addEventListener('change', (e) => {\n",
+              "      resolve(e.target.files);\n",
+              "    });\n",
+              "  });\n",
+              "\n",
+              "  const cancel = document.createElement('button');\n",
+              "  inputElement.parentElement.appendChild(cancel);\n",
+              "  cancel.textContent = 'Cancel upload';\n",
+              "  const cancelPromise = new Promise((resolve) => {\n",
+              "    cancel.onclick = () => {\n",
+              "      resolve(null);\n",
+              "    };\n",
+              "  });\n",
+              "\n",
+              "  // Wait for the user to pick the files.\n",
+              "  const files = yield {\n",
+              "    promise: Promise.race([pickedPromise, cancelPromise]),\n",
+              "    response: {\n",
+              "      action: 'starting',\n",
+              "    }\n",
+              "  };\n",
+              "\n",
+              "  cancel.remove();\n",
+              "\n",
+              "  // Disable the input element since further picks are not allowed.\n",
+              "  inputElement.disabled = true;\n",
+              "\n",
+              "  if (!files) {\n",
+              "    return {\n",
+              "      response: {\n",
+              "        action: 'complete',\n",
+              "      }\n",
+              "    };\n",
+              "  }\n",
+              "\n",
+              "  for (const file of files) {\n",
+              "    const li = document.createElement('li');\n",
+              "    li.append(span(file.name, {fontWeight: 'bold'}));\n",
+              "    li.append(span(\n",
+              "        `(${file.type || 'n/a'}) - ${file.size} bytes, ` +\n",
+              "        `last modified: ${\n",
+              "            file.lastModifiedDate ? file.lastModifiedDate.toLocaleDateString() :\n",
+              "                                    'n/a'} - `));\n",
+              "    const percent = span('0% done');\n",
+              "    li.appendChild(percent);\n",
+              "\n",
+              "    outputElement.appendChild(li);\n",
+              "\n",
+              "    const fileDataPromise = new Promise((resolve) => {\n",
+              "      const reader = new FileReader();\n",
+              "      reader.onload = (e) => {\n",
+              "        resolve(e.target.result);\n",
+              "      };\n",
+              "      reader.readAsArrayBuffer(file);\n",
+              "    });\n",
+              "    // Wait for the data to be ready.\n",
+              "    let fileData = yield {\n",
+              "      promise: fileDataPromise,\n",
+              "      response: {\n",
+              "        action: 'continue',\n",
+              "      }\n",
+              "    };\n",
+              "\n",
+              "    // Use a chunked sending to avoid message size limits. See b/62115660.\n",
+              "    let position = 0;\n",
+              "    do {\n",
+              "      const length = Math.min(fileData.byteLength - position, MAX_PAYLOAD_SIZE);\n",
+              "      const chunk = new Uint8Array(fileData, position, length);\n",
+              "      position += length;\n",
+              "\n",
+              "      const base64 = btoa(String.fromCharCode.apply(null, chunk));\n",
+              "      yield {\n",
+              "        response: {\n",
+              "          action: 'append',\n",
+              "          file: file.name,\n",
+              "          data: base64,\n",
+              "        },\n",
+              "      };\n",
+              "\n",
+              "      let percentDone = fileData.byteLength === 0 ?\n",
+              "          100 :\n",
+              "          Math.round((position / fileData.byteLength) * 100);\n",
+              "      percent.textContent = `${percentDone}% done`;\n",
+              "\n",
+              "    } while (position < fileData.byteLength);\n",
+              "  }\n",
+              "\n",
+              "  // All done.\n",
+              "  yield {\n",
+              "    response: {\n",
+              "      action: 'complete',\n",
+              "    }\n",
+              "  };\n",
+              "}\n",
+              "\n",
+              "scope.google = scope.google || {};\n",
+              "scope.google.colab = scope.google.colab || {};\n",
+              "scope.google.colab._files = {\n",
+              "  _uploadFiles,\n",
+              "  _uploadFilesContinue,\n",
+              "};\n",
+              "})(self);\n",
+              "</script> "
+            ]
+          },
+          "metadata": {}
+        },
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Saving blog_project.zip to blog_project.zip\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "!unzip -o blog_project.zip -d /content/\n",
+        "%cd /content/blog_project\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "s45-H-y_lAPx",
+        "outputId": "b1540662-3a25-4214-8f20-c77963c0fdf1"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Archive:  blog_project.zip\n",
+            "   creating: /content/blog_project/\n",
+            "   creating: /content/blog_project/blog/\n",
+            "  inflating: /content/blog_project/blog/admin.py  \n",
+            "  inflating: /content/blog_project/blog/apps.py  \n",
+            "   creating: /content/blog_project/blog/migrations/\n",
+            "  inflating: /content/blog_project/blog/migrations/__init__.py  \n",
+            "   creating: /content/blog_project/blog/migrations/__pycache__/\n",
+            "  inflating: /content/blog_project/blog/migrations/__pycache__/__init__.cpython-311.pyc  \n",
+            "  inflating: /content/blog_project/blog/models.py  \n",
+            "  inflating: /content/blog_project/blog/tests.py  \n",
+            "  inflating: /content/blog_project/blog/urls.py  \n",
+            "  inflating: /content/blog_project/blog/views.py  \n",
+            "  inflating: /content/blog_project/blog/__init__.py  \n",
+            "   creating: /content/blog_project/blog/__pycache__/\n",
+            "  inflating: /content/blog_project/blog/__pycache__/admin.cpython-311.pyc  \n",
+            "  inflating: /content/blog_project/blog/__pycache__/apps.cpython-311.pyc  \n",
+            "  inflating: /content/blog_project/blog/__pycache__/models.cpython-311.pyc  \n",
+            "  inflating: /content/blog_project/blog/__pycache__/views.cpython-311.pyc  \n",
+            "  inflating: /content/blog_project/blog/__pycache__/__init__.cpython-311.pyc  \n",
+            "   creating: /content/blog_project/blog_project/\n",
+            "  inflating: /content/blog_project/blog_project/asgi.py  \n",
+            "  inflating: /content/blog_project/blog_project/settings.py  \n",
+            "  inflating: /content/blog_project/blog_project/urls.py  \n",
+            "  inflating: /content/blog_project/blog_project/wsgi.py  \n",
+            "  inflating: /content/blog_project/blog_project/__init__.py  \n",
+            "   creating: /content/blog_project/blog_project/__pycache__/\n",
+            "  inflating: /content/blog_project/blog_project/__pycache__/settings.cpython-311.pyc  \n",
+            "  inflating: /content/blog_project/blog_project/__pycache__/urls.cpython-311.pyc  \n",
+            "  inflating: /content/blog_project/blog_project/__pycache__/wsgi.cpython-311.pyc  \n",
+            "  inflating: /content/blog_project/blog_project/__pycache__/__init__.cpython-311.pyc  \n",
+            "  inflating: /content/blog_project/db.sqlite3  \n",
+            "  inflating: /content/blog_project/manage.py  \n",
+            "   creating: /content/blog_project/templates/\n",
+            "   creating: /content/blog_project/templates/blog/\n",
+            "  inflating: /content/blog_project/templates/blog/home.html  \n",
+            "  inflating: /content/blog_project/templates/blog/__init__.py  \n",
+            "   creating: /content/blog_project/templates/registration/\n",
+            "  inflating: /content/blog_project/templates/registration/login.html  \n",
+            "  inflating: /content/blog_project/templates/registration/register.html  \n",
+            "  inflating: /content/blog_project/templates/registration/__init__.py  \n",
+            "  inflating: /content/blog_project/templates/__init__.py  \n",
+            "/content/blog_project\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "**(Advanced)Task 2:\n",
+        "Basic File Encryption/Decryptiont**\n",
+        "\n",
+        "Description: Create a Python script that encrypts and\n",
+        " decrypts text files using a simple encryption\n",
+        " algorithm (e.g., Caesar cipher or Fernet encryption)"
+      ],
+      "metadata": {
+        "id": "TL5HlTkcCnFo"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from cryptography.fernet import Fernet\n",
+        "import os\n",
+        "\n",
+        "KEY_FILENAME = \"codveda_secret.key\"\n",
+        "\n",
+        "def generate_and_store_key():\n",
+        "    key = Fernet.generate_key()\n",
+        "    with open(KEY_FILENAME, \"wb\") as key_file:\n",
+        "        key_file.write(key)\n",
+        "    print(\"🔐 New encryption key generated and saved.\")\n",
+        "\n",
+        "def load_encryption_key():\n",
+        "    try:\n",
+        "        with open(KEY_FILENAME, \"rb\") as key_file:\n",
+        "            return key_file.read()\n",
+        "    except FileNotFoundError:\n",
+        "        print(\"❌ Key not found. Please generate a key first.\")\n",
+        "        return None\n",
+        "\n",
+        "def encrypt_document(file_path):\n",
+        "    key = load_encryption_key()\n",
+        "    if not key:\n",
+        "        return\n",
+        "\n",
+        "    fernet = Fernet(key)\n",
+        "    try:\n",
+        "        with open(file_path, \"rb\") as file:\n",
+        "            content = file.read()\n",
+        "        encrypted = fernet.encrypt(content)\n",
+        "        encrypted_filename = f\"encrypted_{file_path}\"\n",
+        "        with open(encrypted_filename, \"wb\") as enc_file:\n",
+        "            enc_file.write(encrypted)\n",
+        "        print(f\"✅ File encrypted successfully: {encrypted_filename}\")\n",
+        "    except FileNotFoundError:\n",
+        "        print(\"❌ File not found. Check the file name.\")\n",
+        "\n",
+        "def decrypt_document(encrypted_file, output_file):\n",
+        "    key = load_encryption_key()\n",
+        "    if not key:\n",
+        "        return\n",
+        "\n",
+        "    fernet = Fernet(key)\n",
+        "    try:\n",
+        "        with open(encrypted_file, \"rb\") as enc_file:\n",
+        "            encrypted = enc_file.read()\n",
+        "        decrypted = fernet.decrypt(encrypted)\n",
+        "        with open(output_file, \"wb\") as dec_file:\n",
+        "            dec_file.write(decrypted)\n",
+        "        print(f\"✅ File decrypted successfully: {output_file}\")\n",
+        "    except Exception as e:\n",
+        "        print(f\"❌ Decryption failed: {e}\")\n",
+        "\n",
+        "if __name__ == \"__main__\":\n",
+        "    print(\"\\n🛡️ Welcome to Codveda File Guardian 🛡️\")\n",
+        "    print(\"Choose an option:\")\n",
+        "    print(\"1. Generate encryption key\")\n",
+        "    print(\"2. Encrypt a file\")\n",
+        "    print(\"3. Decrypt a file\")\n",
+        "\n",
+        "    option = input(\"Enter choice (1/2/3): \")\n",
+        "\n",
+        "    if option == \"1\":\n",
+        "        generate_and_store_key()\n",
+        "    elif option == \"2\":\n",
+        "        file_to_encrypt = input(\"Enter the name of the file to encrypt: \")\n",
+        "        encrypt_document(file_to_encrypt)\n",
+        "    elif option == \"3\":\n",
+        "        encrypted_file = input(\"Enter the encrypted file name: \")\n",
+        "        decrypted_file = input(\"Enter the name to save decrypted content as: \")\n",
+        "        decrypt_document(encrypted_file, decrypted_file)\n",
+        "    else:\n",
+        "        print(\"❌ Invalid choice. Please select 1, 2, or 3.\")\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "9FLd1OHpCmT5",
+        "outputId": "734ae4bf-2c11-4312-9420-2277df4fedaa"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "\n",
+            "🛡️ Welcome to Codveda File Guardian 🛡️\n",
+            "Choose an option:\n",
+            "1. Generate encryption key\n",
+            "2. Encrypt a file\n",
+            "3. Decrypt a file\n",
+            "Enter choice (1/2/3): 1\n",
+            "🔐 New encryption key generated and saved.\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from google.colab import files\n",
+        "\n",
+        "uploaded = files.upload()  # Upload text file here\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 73
+        },
+        "id": "bUYrG1CBJ_8X",
+        "outputId": "a895667a-2c5a-4e40-d690-a73ee08c825c"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "display_data",
+          "data": {
+            "text/plain": [
+              "<IPython.core.display.HTML object>"
+            ],
+            "text/html": [
+              "\n",
+              "     <input type=\"file\" id=\"files-b6c60dc9-5c5d-4aee-92ec-e6e30f5f2368\" name=\"files[]\" multiple disabled\n",
+              "        style=\"border:none\" />\n",
+              "     <output id=\"result-b6c60dc9-5c5d-4aee-92ec-e6e30f5f2368\">\n",
+              "      Upload widget is only available when the cell has been executed in the\n",
+              "      current browser session. Please rerun this cell to enable.\n",
+              "      </output>\n",
+              "      <script>// Copyright 2017 Google LLC\n",
+              "//\n",
+              "// Licensed under the Apache License, Version 2.0 (the \"License\");\n",
+              "// you may not use this file except in compliance with the License.\n",
+              "// You may obtain a copy of the License at\n",
+              "//\n",
+              "//      http://www.apache.org/licenses/LICENSE-2.0\n",
+              "//\n",
+              "// Unless required by applicable law or agreed to in writing, software\n",
+              "// distributed under the License is distributed on an \"AS IS\" BASIS,\n",
+              "// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n",
+              "// See the License for the specific language governing permissions and\n",
+              "// limitations under the License.\n",
+              "\n",
+              "/**\n",
+              " * @fileoverview Helpers for google.colab Python module.\n",
+              " */\n",
+              "(function(scope) {\n",
+              "function span(text, styleAttributes = {}) {\n",
+              "  const element = document.createElement('span');\n",
+              "  element.textContent = text;\n",
+              "  for (const key of Object.keys(styleAttributes)) {\n",
+              "    element.style[key] = styleAttributes[key];\n",
+              "  }\n",
+              "  return element;\n",
+              "}\n",
+              "\n",
+              "// Max number of bytes which will be uploaded at a time.\n",
+              "const MAX_PAYLOAD_SIZE = 100 * 1024;\n",
+              "\n",
+              "function _uploadFiles(inputId, outputId) {\n",
+              "  const steps = uploadFilesStep(inputId, outputId);\n",
+              "  const outputElement = document.getElementById(outputId);\n",
+              "  // Cache steps on the outputElement to make it available for the next call\n",
+              "  // to uploadFilesContinue from Python.\n",
+              "  outputElement.steps = steps;\n",
+              "\n",
+              "  return _uploadFilesContinue(outputId);\n",
+              "}\n",
+              "\n",
+              "// This is roughly an async generator (not supported in the browser yet),\n",
+              "// where there are multiple asynchronous steps and the Python side is going\n",
+              "// to poll for completion of each step.\n",
+              "// This uses a Promise to block the python side on completion of each step,\n",
+              "// then passes the result of the previous step as the input to the next step.\n",
+              "function _uploadFilesContinue(outputId) {\n",
+              "  const outputElement = document.getElementById(outputId);\n",
+              "  const steps = outputElement.steps;\n",
+              "\n",
+              "  const next = steps.next(outputElement.lastPromiseValue);\n",
+              "  return Promise.resolve(next.value.promise).then((value) => {\n",
+              "    // Cache the last promise value to make it available to the next\n",
+              "    // step of the generator.\n",
+              "    outputElement.lastPromiseValue = value;\n",
+              "    return next.value.response;\n",
+              "  });\n",
+              "}\n",
+              "\n",
+              "/**\n",
+              " * Generator function which is called between each async step of the upload\n",
+              " * process.\n",
+              " * @param {string} inputId Element ID of the input file picker element.\n",
+              " * @param {string} outputId Element ID of the output display.\n",
+              " * @return {!Iterable<!Object>} Iterable of next steps.\n",
+              " */\n",
+              "function* uploadFilesStep(inputId, outputId) {\n",
+              "  const inputElement = document.getElementById(inputId);\n",
+              "  inputElement.disabled = false;\n",
+              "\n",
+              "  const outputElement = document.getElementById(outputId);\n",
+              "  outputElement.innerHTML = '';\n",
+              "\n",
+              "  const pickedPromise = new Promise((resolve) => {\n",
+              "    inputElement.addEventListener('change', (e) => {\n",
+              "      resolve(e.target.files);\n",
+              "    });\n",
+              "  });\n",
+              "\n",
+              "  const cancel = document.createElement('button');\n",
+              "  inputElement.parentElement.appendChild(cancel);\n",
+              "  cancel.textContent = 'Cancel upload';\n",
+              "  const cancelPromise = new Promise((resolve) => {\n",
+              "    cancel.onclick = () => {\n",
+              "      resolve(null);\n",
+              "    };\n",
+              "  });\n",
+              "\n",
+              "  // Wait for the user to pick the files.\n",
+              "  const files = yield {\n",
+              "    promise: Promise.race([pickedPromise, cancelPromise]),\n",
+              "    response: {\n",
+              "      action: 'starting',\n",
+              "    }\n",
+              "  };\n",
+              "\n",
+              "  cancel.remove();\n",
+              "\n",
+              "  // Disable the input element since further picks are not allowed.\n",
+              "  inputElement.disabled = true;\n",
+              "\n",
+              "  if (!files) {\n",
+              "    return {\n",
+              "      response: {\n",
+              "        action: 'complete',\n",
+              "      }\n",
+              "    };\n",
+              "  }\n",
+              "\n",
+              "  for (const file of files) {\n",
+              "    const li = document.createElement('li');\n",
+              "    li.append(span(file.name, {fontWeight: 'bold'}));\n",
+              "    li.append(span(\n",
+              "        `(${file.type || 'n/a'}) - ${file.size} bytes, ` +\n",
+              "        `last modified: ${\n",
+              "            file.lastModifiedDate ? file.lastModifiedDate.toLocaleDateString() :\n",
+              "                                    'n/a'} - `));\n",
+              "    const percent = span('0% done');\n",
+              "    li.appendChild(percent);\n",
+              "\n",
+              "    outputElement.appendChild(li);\n",
+              "\n",
+              "    const fileDataPromise = new Promise((resolve) => {\n",
+              "      const reader = new FileReader();\n",
+              "      reader.onload = (e) => {\n",
+              "        resolve(e.target.result);\n",
+              "      };\n",
+              "      reader.readAsArrayBuffer(file);\n",
+              "    });\n",
+              "    // Wait for the data to be ready.\n",
+              "    let fileData = yield {\n",
+              "      promise: fileDataPromise,\n",
+              "      response: {\n",
+              "        action: 'continue',\n",
+              "      }\n",
+              "    };\n",
+              "\n",
+              "    // Use a chunked sending to avoid message size limits. See b/62115660.\n",
+              "    let position = 0;\n",
+              "    do {\n",
+              "      const length = Math.min(fileData.byteLength - position, MAX_PAYLOAD_SIZE);\n",
+              "      const chunk = new Uint8Array(fileData, position, length);\n",
+              "      position += length;\n",
+              "\n",
+              "      const base64 = btoa(String.fromCharCode.apply(null, chunk));\n",
+              "      yield {\n",
+              "        response: {\n",
+              "          action: 'append',\n",
+              "          file: file.name,\n",
+              "          data: base64,\n",
+              "        },\n",
+              "      };\n",
+              "\n",
+              "      let percentDone = fileData.byteLength === 0 ?\n",
+              "          100 :\n",
+              "          Math.round((position / fileData.byteLength) * 100);\n",
+              "      percent.textContent = `${percentDone}% done`;\n",
+              "\n",
+              "    } while (position < fileData.byteLength);\n",
+              "  }\n",
+              "\n",
+              "  // All done.\n",
+              "  yield {\n",
+              "    response: {\n",
+              "      action: 'complete',\n",
+              "    }\n",
+              "  };\n",
+              "}\n",
+              "\n",
+              "scope.google = scope.google || {};\n",
+              "scope.google.colab = scope.google.colab || {};\n",
+              "scope.google.colab._files = {\n",
+              "  _uploadFiles,\n",
+              "  _uploadFilesContinue,\n",
+              "};\n",
+              "})(self);\n",
+              "</script> "
+            ]
+          },
+          "metadata": {}
+        },
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Saving codVeda.txt to codVeda (1).txt\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Run this only once to create key\n",
+        "if not os.path.exists(KEY_FILE):\n",
+        "    generate_key()\n",
+        "    print(\"🔑 Key generated and saved.\")\n",
+        "\n",
+        "# Choose action:\n",
+        "choice = input(\"Enter 1 to Encrypt or 2 to Decrypt: \")\n",
+        "filename = input(\"Enter the exact file name (e.g., myfile.txt): \")\n",
+        "\n",
+        "if choice == \"1\":\n",
+        "    encrypt_file(filename)\n",
+        "elif choice == \"2\":\n",
+        "    decrypt_file(filename)\n",
+        "else:\n",
+        "    print(\"❌ Invalid choice.\")\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "Q-kNX0CMKjjl",
+        "outputId": "de31c557-facc-4248-da24-9e1551f3beb6"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Enter 1 to Encrypt or 2 to Decrypt: 1\n",
+            "Enter the exact file name (e.g., myfile.txt): codVeda.txt\n",
+            "🔐 File encrypted and saved as: encrypted_codVeda.txt\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "**(Advanced)Task 3: N-Queens Problem**\n",
+        "\n",
+        "Description: Solve the classic N-Queens problem\n",
+        " where the goal is to place N queens on an N x N\n",
+        " chessboard such that no two queens threaten each\n",
+        " other"
+      ],
+      "metadata": {
+        "id": "3t9xABbAM3hj"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import time\n",
+        "\n",
+        "def display_chessboard(board):\n",
+        "    for row in board:\n",
+        "        print(\" \".join(\"♕\" if cell else \".\" for cell in row))\n",
+        "    print()\n",
+        "\n",
+        "def is_safe_position(board, row, col, size):\n",
+        "    for i in range(row):\n",
+        "        if board[i][col]:\n",
+        "            return False\n",
+        "    # left diagonal\n",
+        "    for i, j in zip(range(row, -1, -1), range(col, -1, -1)):\n",
+        "        if board[i][j]:\n",
+        "            return False\n",
+        "    # right diagonal\n",
+        "    for i, j in zip(range(row, -1, -1), range(col, size)):\n",
+        "        if board[i][j]:\n",
+        "            return False\n",
+        "    return True\n",
+        "\n",
+        "def place_queens(board, row, size, all_solutions, counter):\n",
+        "    if row == size:\n",
+        "        all_solutions.append([r[:] for r in board])\n",
+        "        return\n",
+        "\n",
+        "    for col in range(size):\n",
+        "        counter[0] += 1  # Count each attempt\n",
+        "        if is_safe_position(board, row, col, size):\n",
+        "            board[row][col] = 1\n",
+        "            place_queens(board, row + 1, size, all_solutions, counter)\n",
+        "            board[row][col] = 0  # Backtrack\n",
+        "\n",
+        "def solve_n_queens(size):\n",
+        "    board = [[0] * size for _ in range(size)]\n",
+        "    all_solutions = []\n",
+        "    attempt_counter = [0]\n",
+        "\n",
+        "    start_time = time.time()\n",
+        "    place_queens(board, 0, size, all_solutions, attempt_counter)\n",
+        "    end_time = time.time()\n",
+        "\n",
+        "    print(f\"✅ Total Solutions Found: {len(all_solutions)} for N = {size}\")\n",
+        "    print(f\"🕒 Time Taken: {end_time - start_time:.4f} seconds\")\n",
+        "    print(f\"🔁 Attempts Tried: {attempt_counter[0]}\")\n",
+        "\n",
+        "    for idx, solution in enumerate(all_solutions, 1):\n",
+        "        print(f\"\\n🔹 Solution #{idx}:\")\n",
+        "        display_chessboard(solution)\n",
+        "\n",
+        "if __name__ == \"__main__\":\n",
+        "    print(\"♟️ Codveda N-Queens Problem Solver\")\n",
+        "    try:\n",
+        "        N = int(input(\"Enter board size (N): \"))\n",
+        "        if N <= 0:\n",
+        "            raise ValueError\n",
+        "        solve_n_queens(N)\n",
+        "    except ValueError:\n",
+        "        print(\"❌ Please enter a valid positive integer.\")\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "3701aoS4K2LU",
+        "outputId": "0ea3d162-ccd9-435a-8748-0b2862a43548"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "♟️ Codveda N-Queens Problem Solver\n",
+            "Enter board size (N): 6\n",
+            "✅ Total Solutions Found: 4 for N = 6\n",
+            "🕒 Time Taken: 0.0009 seconds\n",
+            "🔁 Attempts Tried: 894\n",
+            "\n",
+            "🔹 Solution #1:\n",
+            ". ♕ . . . .\n",
+            ". . . ♕ . .\n",
+            ". . . . . ♕\n",
+            "♕ . . . . .\n",
+            ". . ♕ . . .\n",
+            ". . . . ♕ .\n",
+            "\n",
+            "\n",
+            "🔹 Solution #2:\n",
+            ". . ♕ . . .\n",
+            ". . . . . ♕\n",
+            ". ♕ . . . .\n",
+            ". . . . ♕ .\n",
+            "♕ . . . . .\n",
+            ". . . ♕ . .\n",
+            "\n",
+            "\n",
+            "🔹 Solution #3:\n",
+            ". . . ♕ . .\n",
+            "♕ . . . . .\n",
+            ". . . . ♕ .\n",
+            ". ♕ . . . .\n",
+            ". . . . . ♕\n",
+            ". . ♕ . . .\n",
+            "\n",
+            "\n",
+            "🔹 Solution #4:\n",
+            ". . . . ♕ .\n",
+            ". . ♕ . . .\n",
+            "♕ . . . . .\n",
+            ". . . . . ♕\n",
+            ". . . ♕ . .\n",
+            ". ♕ . . . .\n",
+            "\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
