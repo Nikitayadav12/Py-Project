@@ -1,0 +1,131 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": []
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "source": [
+        "**Task 1: Build a calculator CLI app**"
+      ],
+      "metadata": {
+        "id": "NqiGVl8zfbmF"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "**Objective:**\n",
+        "To develop a console-based calculator in Python that performs basic arithmetic operations such as addition, subtraction, multiplication, division, and percentage calculation, while incorporating error handling for invalid inputs and division by zero, thereby enhancing programming skills in functions, user interaction, and input validation."
+      ],
+      "metadata": {
+        "id": "1T1lFJgRfOIz"
+      }
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 2,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "JzjFmdsLedv8",
+        "outputId": "f31b6e11-dddc-474a-93a6-34dd5e7efaf1"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "CLI Pro Calci: Choose your option!\n",
+            "Select operation:\n",
+            "1. Addition (+)\n",
+            "2. Subtraction (-)\n",
+            "3. Multiplication (*)\n",
+            "4. Division (/)\n",
+            "5. Percentage (%)\n",
+            "Enter choice (1/2/3/4/5): 3\n",
+            "Enter first number: 3\n",
+            "Enter second number: 5\n",
+            "Result: 15.0\n",
+            "Do you want to perform another operation? (y/n): N\n",
+            "Thanks for using CLI Pro Calci!\n"
+          ]
+        }
+      ],
+      "source": [
+        "def perform_addition(x, y):\n",
+        "    return x + y\n",
+        "\n",
+        "def perform_subtract(x, y):\n",
+        "    return x - y\n",
+        "\n",
+        "def perform_multiply(x, y):\n",
+        "    return x * y\n",
+        "\n",
+        "def perform_divide(x, y):\n",
+        "    try:\n",
+        "        return x / y\n",
+        "    except ZeroDivisionError:\n",
+        "        return \"Error: Cannot divide by zero.\"\n",
+        "\n",
+        "def perform_percentage(x, y):\n",
+        "    try:\n",
+        "        return (x / y) * 100\n",
+        "    except ZeroDivisionError:\n",
+        "        return \"Error: Cannot calculate percentage with divisor zero.\"\n",
+        "\n",
+        "def calculator():\n",
+        "    print(\"CLI Pro Calci: Choose your option!\")\n",
+        "    print(\"Select operation:\")\n",
+        "    print(\"1. Addition (+)\")\n",
+        "    print(\"2. Subtraction (-)\")\n",
+        "    print(\"3. Multiplication (*)\")\n",
+        "    print(\"4. Division (/)\")\n",
+        "    print(\"5. Percentage (%)\")\n",
+        "\n",
+        "    choice = input(\"Enter choice (1/2/3/4/5): \")\n",
+        "\n",
+        "    if choice in ('1', '2', '3', '4', '5'):\n",
+        "        try:\n",
+        "            num1 = float(input(\"Enter first number: \"))\n",
+        "            num2 = float(input(\"Enter second number: \"))\n",
+        "        except ValueError:\n",
+        "            print(\"Invalid input. Please enter numeric values.\")\n",
+        "            return\n",
+        "\n",
+        "        if choice == '1':\n",
+        "            print(\"Result:\", perform_addition(num1, num2))\n",
+        "        elif choice == '2':\n",
+        "            print(\"Result:\", perform_subtract(num1, num2))\n",
+        "        elif choice == '3':\n",
+        "            print(\"Result:\", perform_multiply(num1, num2))\n",
+        "        elif choice == '4':\n",
+        "            print(\"Result:\", perform_divide(num1, num2))\n",
+        "        elif choice == '5':\n",
+        "            print(f\"{num1} is {perform_percentage(num1, num2):.2f}% of {num2}\")\n",
+        "    else:\n",
+        "        print(\"Invalid choice. Please choose 1-5.\")\n",
+        "\n",
+        "if __name__ == \"__main__\":\n",
+        "  while True:\n",
+        "    calculator()\n",
+        "    again = input(\"Do you want to perform another operation? (y/n): \").lower()\n",
+        "    if again != 'y':\n",
+        "        print(\"Thanks for using CLI Pro Calci!\")\n",
+        "        break"
+      ]
+    }
+  ]
+}
