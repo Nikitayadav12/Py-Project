@@ -41,16 +41,3 @@ i need help
 
 🌌 Inspiration This project is inspired by SETI (Search for Extraterrestrial Intelligence) and popular science-fiction concepts, blending coding with creativity to decode imagined alien languages.
 
-🌦 Weather App Using API
-
-📌 Objective
-
-Build a Python program that shows the current weather using the OpenWeatherMap API.
-
-This project demonstrates how to work with public APIs, fetch real-time weather data, and display it in a readable format using Python.
-
-🛠 Tools & Technologies
-
-Python 3.x
-
-Requests Library (pip install requests)
